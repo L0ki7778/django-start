@@ -1,4 +1,5 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.views.generic.base import RedirectView
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, Http404
 from .dummy_data import gadgets as gadgets
 from django.utils.text import slugify
@@ -10,20 +11,15 @@ import json
 
 
 def start_page_view(request):
-    return HttpResponse("Funktioniert")
+    return render(request, 'tech_gadgets/test.html')
 
+class RedirectToGadgetView(RedirectView):
+    pattern_name = "gadget_slug_url"
 
-# def single_gadget_view(request, gadget_id):
-
-#     return JsonResponse({"result": slugify(gadgets[gadget_id])})
-
-def single_gadget_int_view(request, gadget_id):
-    if gadget_id < len(gadgets):
-        new_slug = slugify(gadgets[gadget_id]["name"])
-        new_url = reverse('gadget_slug_url', args=[new_slug])
-
-        return redirect(new_url)
-    return HttpResponseBadRequest("Kein gadget mit dieser ID")
+    def get_redirect_url(self, *args, **kwargs):
+        slug = slugify(gadgets[kwargs.get("gadget.id",0)]["name"])
+        new_kwargs = {"gadget_slug":slug}
+        return super().get_redirect_url(*args, **new_kwargs)
 
 
 class GadgetView(View):
@@ -46,6 +42,15 @@ class GadgetView(View):
             return JsonResponse({"response":"das war was"})
         except:
             return JsonResponse({"response": "NOPE!"})
+
+def single_gadget_int_view(request, gadget_id):
+    if gadget_id < len(gadgets):
+        new_slug = slugify(gadgets[gadget_id]["name"])
+        new_url = reverse('gadget_slug_url', args=[new_slug])
+
+        return redirect(new_url)
+    return HttpResponseBadRequest("Kein gadget mit dieser ID")
+
 
 
 def single_gadget_view(request, gadget_slug=""):

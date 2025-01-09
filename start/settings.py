@@ -28,7 +28,6 @@ DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tech_gadgets'
 ]
 
 MIDDLEWARE = [
@@ -54,24 +54,24 @@ MIDDLEWARE = [
 
 CSRF_TRUSTED_ORIGINS = [
 
-  'http://127.0.0.1:5500',
-  'http://127.0.0.1:5501',
+    'http://127.0.0.1:5500',
+    'http://127.0.0.1:5501',
 
-  'http://localhost:5501',
+    'http://localhost:5501',
 
-  'http://localhost:5500',
+    'http://localhost:5500',
 
 ]
 
 
 CORS_ALLOWED_ORIGINS = [
 
-  'http://127.0.0.1:5501',
-  'http://127.0.0.1:5500',
+    'http://127.0.0.1:5501',
+    'http://127.0.0.1:5500',
 
-  'http://localhost:5501',
+    'http://localhost:5501',
 
-  'http://localhost:5500',
+    'http://localhost:5500',
 
 ]
 
@@ -80,7 +80,10 @@ ROOT_URLCONF = 'start.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'start/templates',
+            BASE_DIR / 'tech_gadgets/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
