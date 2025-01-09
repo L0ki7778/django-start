@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic.base import RedirectView
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, Http404
 from .dummy_data import gadgets as gadgets
+from .dummy_data import manufacturers as manufacturers
 from django.utils.text import slugify
 from django.urls import reverse
 from django.views import View
@@ -11,7 +12,7 @@ import json
 
 
 def start_page_view(request):
-    return render(request, 'tech_gadgets/test.html')
+    return render(request, 'tech_gadgets/test.html', {'gadget_list' : gadgets})
 
 class RedirectToGadgetView(RedirectView):
     pattern_name = "gadget_slug_url"
@@ -42,6 +43,27 @@ class GadgetView(View):
             return JsonResponse({"response":"das war was"})
         except:
             return JsonResponse({"response": "NOPE!"})
+
+class ManufacturerView(View):
+    def get(self,request,id):
+        existing_company = None
+        for company in manufacturers:
+            if company == manufacturers[id]:
+                existing_company = slugify(company)
+        return JsonResponse({"company":existing_company})
+
+class ManufacturerTemplateView(View):
+    manufacturer_list = None
+    def get(self,request,**kwargs):
+            id = kwargs.get("id",0)
+            print(id)
+            if id == 0:
+                return render(request,'tech_gadgets/test.html' , {"manufacturer_list":manufacturers[:1]})
+            elif id == 1:
+                return render(request,'tech_gadgets/test.html' , {"manufacturer_list":manufacturers[:2]})
+            elif id > 1:
+                return render(request,'tech_gadgets/test.html' , {"manufacturer_list":manufacturers})
+
 
 def single_gadget_int_view(request, gadget_id):
     if gadget_id < len(gadgets):

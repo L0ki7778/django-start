@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funktioniert wirklich</title>
-</head>
+{% block title %}
+  gadget list test
+{% endblock %}
 
-<body>
-    <h1>das hat funktioniert</h1>
-</body>
-
-</html>
+{% block content %}
+  <h1>das hat funktioniert</h1>
+  {% for item in manufacturer_list %}
+    <h2>{{ item.name|upper }}</h2>
+    {% comment %} <p>{{ item.tease|truncatewords:'100' }}</p> {% endcomment %}
+  {% endfor %}
+{% endblock %}

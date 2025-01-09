@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1_jl2*gg_waonry%+j8)-@jm9ypt=)fiy22^j0(3)k#ti+2j5&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -150,3 +150,37 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# python -m venv venv                         # type: ignore
+
+# pip install django                          # type: ignore
+# django-admin startproject projektname       # type: ignore
+# cd projektname                              # type: ignore
+# python manage.py startapp appname           # type: ignore
+#                                             # type: ignore
+# INSTALLED_APPS = [                          # type: ignore
+#     ...,                                    # type: ignore
+#     'appname',                              # type: ignore
+# ]                                           # type: ignore
+#                                             # type: ignore
+# python manage.py makemigrations             # type: ignore
+# python manage.py migrate                    # type: ignore
+# python manage.py runserver                  # type: ignore
+#                                             # type: ignore
+# from django.urls import path                # type: ignore
+# from . import views                         # type: ignore
+#                                             # type: ignore
+# urlpatterns = [                             # type: ignore
+#     path('', views.home, name='home'),      # type: ignore
+# ]                                           # type: ignore
+#                                             # type: ignore
+# from django.http import HttpResponse        # type: ignore
+#                                             # type: ignore
+# //In den Views                              # type: ignore
+# def home(request):                          # type: ignore
+#     return HttpResponse("Hello, Django!")   # type: ignore
+#                                             # type: ignore
+#                                             # type: ignore
+# python manage.py createsuperuser            # type: ignore
+#                                             # type: ignore
